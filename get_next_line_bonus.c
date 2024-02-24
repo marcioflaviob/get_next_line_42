@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbrandao <mbrandao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/22 21:46:03 by mbrandao          #+#    #+#             */
-/*   Updated: 2024/02/24 16:47:25 by mbrandao         ###   ########.fr       */
+/*   Created: 2024/02/24 16:43:44 by mbrandao          #+#    #+#             */
+/*   Updated: 2024/02/24 16:48:17 by mbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ char	*helper_ft(int fd, char *updated)
 
 char	*get_next_line(int fd)
 {
-	static char	*updated;
+	static char	*updated[4096];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	updated = helper_ft(fd, updated);
-	if (!updated || updated[0] == 0)
+	updated[fd] = helper_ft(fd, updated[fd]);
+	if (!updated[fd] || updated[fd][0] == 0)
 		return (NULL);
-	line = line_dealer(updated);
-	if (updated)
+	line = line_dealer(updated[fd]);
+	if (updated[fd])
 	{
-		if (updated[0] == 0)
+		if (updated[fd][0] == 0)
 		{
-			free (updated);
-			updated = NULL;
+			free (updated[fd]);
+			updated[fd] = NULL;
 		}
 	}
 	return (line);
@@ -74,10 +74,15 @@ char	*get_next_line(int fd)
 /*
 int main() {
 	int fd = open("poem.txt", O_RDONLY);
+	int fd2 = open("poem2.txt", O_RDONLY);
 
 	char *line1 = get_next_line(fd);
+	char *ligne1 = get_next_line(fd2);
 	char *line2 = get_next_line(fd);
+	char *ligne2 = get_next_line(fd2);
 	char *line3 = get_next_line(fd);
+	char *ligne3 = get_next_line(fd2);
+	char *ligne4 = get_next_line(fd2);
 	char *line4 = get_next_line(fd);
 
 	
@@ -86,11 +91,22 @@ int main() {
 	printf("%s", line3);
 	printf("%s", line4);
 
+	printf("%s", ligne1);
+	printf("%s", ligne2);
+	printf("%s", ligne3);
+	printf("%s", ligne4);
+	
 	free(line1);
 	free(line2);
 	free(line3);
 	free(line4);
+	
+	free(ligne1);
+	free(ligne2);
+	free(ligne3);
+	free(ligne4);
 
 	close (fd);
+	close (fd2);
 }
 */
