@@ -6,25 +6,12 @@
 /*   By: mbrandao <mbrandao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 21:46:03 by mbrandao          #+#    #+#             */
-/*   Updated: 2024/02/24 16:47:25 by mbrandao         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:31:57 by mbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-// #include "get_next_line_utils.c"
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*str;
-	size_t			i;
-
-	str = s;
-	i = 0;
-	while (i < n)
-	{
-		str[i++] = 0;
-	}
-}
+//#include "get_next_line_utils.c"
 
 char	*helper_ft(int fd, char *updated)
 {
@@ -59,7 +46,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	updated = helper_ft(fd, updated);
 	if (!updated || updated[0] == 0)
+	{
+		free(updated);
+		updated = NULL;
 		return (NULL);
+	}
 	line = line_dealer(updated);
 	if (updated)
 	{
@@ -71,25 +62,50 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
+
 /*
 int main() {
 	int fd = open("poem.txt", O_RDONLY);
+	
+	// char *line;
+	// while (1)
+	// {
+	// 	line = get_next_line(fd);
+	// 	if (!line)
+	// 	{
+	// 		free(line);
+	// 		break;
+	// 	}
+	// 	printf("%s", line);
+	// 	free(line);
+	// }
+	
 
+
+
+	
 	char *line1 = get_next_line(fd);
 	char *line2 = get_next_line(fd);
 	char *line3 = get_next_line(fd);
 	char *line4 = get_next_line(fd);
+	char *line5 = get_next_line(fd);
+	char *line6 = get_next_line(fd);
 
 	
 	printf("%s", line1);
 	printf("%s", line2);
 	printf("%s", line3);
 	printf("%s", line4);
+	printf("%s", line5);
+	printf("%s", line6);
 
 	free(line1);
 	free(line2);
 	free(line3);
 	free(line4);
+	free(line5);
+	free(line6);
+	
 
 	close (fd);
 }

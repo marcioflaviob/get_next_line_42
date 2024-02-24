@@ -6,25 +6,12 @@
 /*   By: mbrandao <mbrandao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 16:43:44 by mbrandao          #+#    #+#             */
-/*   Updated: 2024/02/24 16:48:17 by mbrandao         ###   ########.fr       */
+/*   Updated: 2024/02/24 20:31:16 by mbrandao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 // #include "get_next_line_utils.c"
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*str;
-	size_t			i;
-
-	str = s;
-	i = 0;
-	while (i < n)
-	{
-		str[i++] = 0;
-	}
-}
 
 char	*helper_ft(int fd, char *updated)
 {
@@ -59,7 +46,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	updated[fd] = helper_ft(fd, updated[fd]);
 	if (!updated[fd] || updated[fd][0] == 0)
+	{
+		free(updated[fd]);
+		updated[fd] = NULL;
 		return (NULL);
+	}
 	line = line_dealer(updated[fd]);
 	if (updated[fd])
 	{
