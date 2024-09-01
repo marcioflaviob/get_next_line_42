@@ -8,7 +8,7 @@ Creation of one or multiple file(s) reader in C. The bonus allows you to read fr
 
 
 ```bash
-git clone https://github.com/trimize/42-get_next_line.git && cd 42-get_next_line
+git clone https://github.com/marcioflaviob/get_next_line_42.git && cd get_next_line_42
 ```
 
 ## Usage
